@@ -1,4 +1,3 @@
-
 ---
 - name: Install of requirements tools
   hosts: nginx
