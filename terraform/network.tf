@@ -30,3 +30,79 @@ resource "yandex_vpc_subnet" "subnet_zone_b_private" {
   network_id     = yandex_vpc_network.default.id
   v4_cidr_blocks = ["192.168.21.0/24"]
 }
+
+# Создается запись в зоне для домена, после создания NGINX
+data "yandex_dns_zone" "zone" {
+  name = "devops-netology"
+}
+resource "yandex_dns_recordset" "rs" {
+  zone_id = data.yandex_dns_zone.zone.id
+  name    = "devopsrom.ru."
+  type    = "A"
+  ttl     = 300
+  data    = ["${yandex_compute_instance.nginx.network_interface.0.nat_ip_address}"]
+
+  depends_on = [
+    yandex_compute_instance.nginx
+  ]
+}
+
+resource "yandex_dns_recordset" "rs1" {
+  zone_id = data.yandex_dns_zone.zone.id
+  name    = "www"
+  type    = "A"
+  ttl     = 300
+  data    = ["${yandex_compute_instance.nginx.network_interface.0.nat_ip_address}"]
+
+  depends_on = [
+    yandex_compute_instance.nginx
+  ]
+}
+
+resource "yandex_dns_recordset" "rs2" {
+  zone_id = data.yandex_dns_zone.zone.id
+  name    = "gitlab"
+  type    = "A"
+  ttl     = 300
+  data    = ["${yandex_compute_instance.nginx.network_interface.0.nat_ip_address}"]
+
+  depends_on = [
+    yandex_compute_instance.nginx
+  ]
+}
+
+resource "yandex_dns_recordset" "rs3" {
+  zone_id = data.yandex_dns_zone.zone.id
+  name    = "grafana"
+  type    = "A"
+  ttl     = 300
+  data    = ["${yandex_compute_instance.nginx.network_interface.0.nat_ip_address}"]
+
+  depends_on = [
+    yandex_compute_instance.nginx
+  ]
+}
+
+resource "yandex_dns_recordset" "rs4" {
+  zone_id = data.yandex_dns_zone.zone.id
+  name    = "alertmanager"
+  type    = "A"
+  ttl     = 300
+  data    = ["${yandex_compute_instance.nginx.network_interface.0.nat_ip_address}"]
+
+  depends_on = [
+    yandex_compute_instance.nginx
+  ]
+}
+
+resource "yandex_dns_recordset" "rs5" {
+  zone_id = data.yandex_dns_zone.zone.id
+  name    = "prometheus"
+  type    = "A"
+  ttl     = 300
+  data    = ["${yandex_compute_instance.nginx.network_interface.0.nat_ip_address}"]
+
+  depends_on = [
+    yandex_compute_instance.nginx
+  ]
+}

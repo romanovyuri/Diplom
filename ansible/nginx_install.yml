@@ -15,10 +15,3 @@
   roles:
   - role: nginx_install
 
-- name: NGINX restart
-  hosts: nginx
-  become: yes
-  become_user: root
-  remote_user: ubuntu
-  roles:
-  - role: nginx_restart
