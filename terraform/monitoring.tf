@@ -30,7 +30,7 @@ resource "yandex_compute_instance" "monitoring" {
 
   # Создаем сетевой интерфейс у ВМ, с адресом из ранее созданной подсети и NAT, чтобы был доступ из инета
   network_interface {
-    subnet_id = yandex_vpc_subnet.subnet_zone_a_public.id
+    subnet_id = yandex_vpc_subnet.subnet_zone_a_private.id
     nat = "false"
   }
 

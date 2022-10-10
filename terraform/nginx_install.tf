@@ -24,9 +24,7 @@ resource "null_resource" "get_letsencrypt" {
   }
 
   depends_on = [
-    #null_resource.proxy_insert_dnat_rule,
-    local_file.inventory,
-    yandex_dns_recordset.rs
+    null_resource.nginx
   ]
 }
 
@@ -37,8 +35,6 @@ resource "null_resource" "get_letsencrypt_services" {
   }
 
   depends_on = [
-    #null_resource.proxy_insert_dnat_rule,
-    local_file.inventory,
-    yandex_dns_recordset.rs1
+    null_resource.nginx
   ]
 }

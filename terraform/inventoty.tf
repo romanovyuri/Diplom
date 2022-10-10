@@ -32,7 +32,8 @@ resource "local_file" "inventory" {
     ${yandex_compute_instance.runner.hostname} ansible_host=${yandex_compute_instance.runner.network_interface.0.ip_address}
     [monitoring]
     ${yandex_compute_instance.monitoring.hostname} ansible_host=${yandex_compute_instance.monitoring.network_interface.0.ip_address}
-
+    [nodesinside:vars]
+    ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -W %h:%p -q ubuntu@${yandex_compute_instance.nginx.network_interface.0.nat_ip_address}"'
  DOC
   filename = "../ansible/inventory"
   file_permission = "0644"

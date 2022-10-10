@@ -27,7 +27,7 @@ resource "yandex_compute_instance" "db01" {
 
   # Создаем сетевой интерфейс у ВМ, с адресом из ранее созданной подсети
   network_interface {
-    subnet_id = yandex_vpc_subnet.subnet_zone_a_public.id
+    subnet_id = yandex_vpc_subnet.subnet_zone_a_private.id
       nat = "false"
   }
 
@@ -66,7 +66,7 @@ resource "yandex_compute_instance" "db02" {
 
   # Создаем сетевой интерфейс у ВМ, с адресом из ранее созданной подсети
   network_interface {
-    subnet_id = yandex_vpc_subnet.subnet_zone_a_public.id
+    subnet_id = yandex_vpc_subnet.subnet_zone_a_private.id
       nat = "false"
   }
 

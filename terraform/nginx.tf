@@ -19,11 +19,12 @@ resource "yandex_compute_instance" "nginx" {
   # Загрузочный диск из стандартного образа, на SSD, 40Gb
   boot_disk {
     initialize_params {
-      image_id = data.yandex_compute_image.ubuntu.id
+      image_id = "fd8v7ru46kt3s4o5f0uo"
       type = "network-hdd"
       size = "20"
     }
   }
+
 
   # Это нужно, чтобы при смене id образа (сменилась последняя сборка семейства ОС) терраформ не пытался пересоздать ВМ
   lifecycle {

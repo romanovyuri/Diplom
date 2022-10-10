@@ -29,7 +29,7 @@ resource "yandex_compute_instance" "app" {
   }
 
   network_interface {
-    subnet_id = yandex_vpc_subnet.subnet_zone_a_public.id
+    subnet_id = yandex_vpc_subnet.subnet_zone_a_private.id
     nat = "false"
   }
 
