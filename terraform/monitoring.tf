@@ -2,7 +2,7 @@ resource "yandex_compute_instance" "monitoring" {
   name        = "monitoring"
   platform_id = "standard-v1"
   zone        = "ru-central1-a"
-  hostname    = "monitoring.devopsrom"
+  hostname    = "monitoring.devopsrom.ru"
 
   # В ресурсах 4 ядра, 4 гига оперативы, под 100% нагрузку
   resources {

@@ -3,7 +3,7 @@ resource "yandex_compute_instance" "gitlab" {
   allow_stopping_for_update = true
   platform_id = "standard-v1"
   zone        = "ru-central1-a"
-  hostname    = "gitlab.devopsrom"
+  hostname    = "gitlab.devopsrom.ru"
 
   # В ресурсах 2 ядра, 2 гига оперативы, под 100% нагрузку
   resources {

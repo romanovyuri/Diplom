@@ -40,4 +40,4 @@ terraform/key.json
 terraform/.terraform.lock.hcl
 
 secrets.tf
-
+*id_rsa*

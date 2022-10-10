@@ -2,7 +2,7 @@ resource "yandex_compute_instance" "db01" {
   name        = "db01"
   platform_id = "standard-v1"
   zone        = "ru-central1-a"
-  hostname    = "db01.devopsrom"
+  hostname    = "db01.devopsrom.ru"
 
   # В ресурсах 4 ядра, 4 гига оперативы, под 100% нагрузку
   resources {
@@ -41,7 +41,7 @@ resource "yandex_compute_instance" "db02" {
   name        = "db02"
   platform_id = "standard-v1"
   zone        = "ru-central1-a"
-  hostname    = "db02.devopsrom"
+  hostname    = "db02.devopsrom.ru"
 
   # В ресурсах 4 ядра, 4 гига оперативы, под 100% нагрузку
   resources {
