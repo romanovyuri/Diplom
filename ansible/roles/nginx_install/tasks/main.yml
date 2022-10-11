@@ -3,8 +3,3 @@
   package:
     name: nginx
     state: latest
-- name: Restart Nginx
-  ansible.builtin.service:
-      name: nginx
-      state: restarted
-      enabled: yes
