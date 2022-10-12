@@ -1,0 +1,8 @@
+---
+- name: Create proxy server config files
+  hosts: nginx
+  become: yes
+  become_user: root
+  remote_user: ubuntu
+  roles:
+  - role: nginx_restart

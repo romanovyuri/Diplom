@@ -38,17 +38,17 @@ resource "null_resource" "get_letsencrypt" {
   }
 
   depends_on = [
-    null_resource.nginx
+    null_resource.ssh_tools
   ]
 }
 
-/*# Создание TLS сертификатов, используя letsencrypt. Создаем сертификаты для всех поддоменов
+# Создание TLS сертификатов, используя letsencrypt. Создаем сертификаты для всех поддоменов
 resource "null_resource" "get_letsencrypt_service_www" {
   provisioner "local-exec" {
     command = "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory ../ansible/letsencrypt.yml --extra-vars 'domain_name=www.devopsrom.ru'"
   }
   depends_on = [
-    null_resource.nginx
+    null_resource.get_letsencrypt
   ]
 }
 resource "null_resource" "get_letsencrypt_service_gitlab" {
@@ -56,7 +56,7 @@ resource "null_resource" "get_letsencrypt_service_gitlab" {
     command = "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory ../ansible/letsencrypt.yml --extra-vars 'domain_name=gitlab.devopsrom.ru'"
   }
   depends_on = [
-    null_resource.nginx
+    null_resource.get_letsencrypt_service_www
   ]
 }
 resource "null_resource" "get_letsencrypt_service_grafana" {
@@ -64,7 +64,7 @@ resource "null_resource" "get_letsencrypt_service_grafana" {
     command = "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory ../ansible/letsencrypt.yml --extra-vars 'domain_name=grafana.devopsrom.ru'"
   }
   depends_on = [
-    null_resource.nginx
+    null_resource.get_letsencrypt_service_gitlab
   ]
 }
 resource "null_resource" "get_letsencrypt_service_prometheus" {
@@ -72,7 +72,7 @@ resource "null_resource" "get_letsencrypt_service_prometheus" {
     command = "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory ../ansible/letsencrypt.yml --extra-vars 'domain_name=prometheus.devopsrom.ru'"
   }
   depends_on = [
-    null_resource.nginx
+    null_resource.get_letsencrypt_service_grafana
   ]
 }
 resource "null_resource" "get_letsencrypt_service_alertmanager" {
@@ -80,16 +80,16 @@ resource "null_resource" "get_letsencrypt_service_alertmanager" {
     command = "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory ../ansible/letsencrypt.yml --extra-vars 'domain_name=alertmanager.devopsrom.ru'"
   }
   depends_on = [
-    null_resource.nginx
+    null_resource.get_letsencrypt_service_prometheus
   ]
-}*/
+}
 #Создание конфигурации NGINX для корневого домена и поддоменов с работой сертификатов TLS.
 resource "null_resource" "nginx_config" {
   provisioner "local-exec" {
     command = "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory ../ansible/nginx_config.yml --extra-vars 'domain_name=devopsrom.ru conf_dir=/etc/nginx/conf.d service_ip_port=app:8080 default_conf_file=default.conf'"
   }
   depends_on = [
-    null_resource.get_letsencrypt
+    null_resource.get_letsencrypt_service_alertmanager
   ]
 }
 resource "null_resource" "nginx_config_www" {
@@ -97,7 +97,7 @@ resource "null_resource" "nginx_config_www" {
     command = "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory ../ansible/nginx_config.yml --extra-vars 'domain_name=www.devopsrom.ru conf_dir=/etc/nginx/conf.d service_ip_port=app:8080'"
   }
   depends_on = [
-    null_resource.get_letsencrypt_service_www
+    null_resource.get_letsencrypt_service_alertmanager
   ]
 }
 resource "null_resource" "nginx_config_gitlab" {
@@ -105,7 +105,7 @@ resource "null_resource" "nginx_config_gitlab" {
     command = "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory ../ansible/nginx_config.yml --extra-vars 'domain_name=gitlab.devopsrom.ru conf_dir=/etc/nginx/conf.d service_ip_port=gitlab'"
   }
   depends_on = [
-    null_resource.get_letsencrypt_service_gitlab
+    null_resource.get_letsencrypt_service_alertmanager
   ]
 }
 resource "null_resource" "nginx_config_grafana" {
@@ -113,7 +113,7 @@ resource "null_resource" "nginx_config_grafana" {
     command = "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory ../ansible/nginx_config.yml --extra-vars 'domain_name=grafana.devopsrom.ru conf_dir=/etc/nginx/conf.d service_ip_port=monitoring:3000'"
   }
   depends_on = [
-    null_resource.get_letsencrypt_service_grafana
+    null_resource.get_letsencrypt_service_alertmanager
   ]
 }
 resource "null_resource" "nginx_config_prometheus" {
@@ -121,7 +121,7 @@ resource "null_resource" "nginx_config_prometheus" {
     command = "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory ../ansible/nginx_config.yml --extra-vars 'domain_name=prometheus.devopsrom.ru conf_dir=/etc/nginx/conf.d service_ip_port=monitoring:9090'"
   }
   depends_on = [
-    null_resource.get_letsencrypt_service_prometheus
+    null_resource.get_letsencrypt
   ]
 }
 resource "null_resource" "nginx_config_alertmanager" {
@@ -143,7 +143,8 @@ resource "null_resource" "nginx_restart" {
     null_resource.nginx_config_www,
     null_resource.nginx_config_gitlab,
     null_resource.nginx_config_grafana,
-    null_resource.get_letsencrypt_service_prometheus,
+    null_resource.nginx_config_prometheus,
+    null_resource.nginx_config_alertmanager,
     null_resource.get_letsencrypt_service_alertmanager
   ]
 }

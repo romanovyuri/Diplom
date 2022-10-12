@@ -1,0 +1,12 @@
+---
+- name: Update apt and install MySQL server
+  ansible.builtin.apt:
+    pkg:
+      - mysql-server
+    state: present
+    update_cache: true
+
+- name: Check pymysql
+  ansible.builtin.pip:
+    name: pymysql
+    state: present

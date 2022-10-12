@@ -1,17 +1,16 @@
 ---
 - name: Install of requirements tools
-  hosts: nginx
+  hosts: mysql
   become: yes
   become_user: root
   remote_user: ubuntu
   roles:
   - role: ubuntu_install_tools
 
-- name: NGINX install
-  hosts: nginx
+- name: MySQL install
+  hosts: mysql
   become: yes
   become_user: root
   remote_user: ubuntu
   roles:
-  - role: nginx_install
-
+  - role: mysql_install
