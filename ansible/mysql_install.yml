@@ -14,3 +14,31 @@
   remote_user: ubuntu
   roles:
   - role: mysql_install
+
+- name: MySQL config db1
+  vars:
+    server_id: 1
+  hosts: mysql1
+  become: yes
+  become_user: root
+  remote_user: ubuntu
+  roles:
+  - role: db_config
+
+- name: MySQL config db2
+  vars:
+    server_id: 2
+  hosts: mysql2
+  become: yes
+  become_user: root
+  remote_user: ubuntu
+  roles:
+  - role: db_config
+
+- name: DB install
+  hosts: mysql1
+  become: yes
+  become_user: root
+  remote_user: ubuntu
+  roles:
+  - role: db_install

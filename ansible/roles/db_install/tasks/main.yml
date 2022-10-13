@@ -1,0 +1,24 @@
+---
+# Источник https://github.com/geerlingguy/ansible-role-mysql/blob/master/tasks/replication.yml
+- name: Check master replication status
+  mysql_replication:
+    mode: getprimary
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  register: master
+
+- name: Configure replication on the slave
+  mysql_replication:
+    mode: changeprimary
+    primary_host: db01.devopsrom.ru
+    primary_user: wordpress
+    primary_password: wordpress
+    primary_log_file: "{{ master.File }}"
+    primary_log_pos: "{{ master.Position }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  delegate_to: db02.devopsrom.ru
+
+- name: Start replication
+  mysql_replication:
+    mode: startreplica
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  delegate_to: db02.devopsrom.ru

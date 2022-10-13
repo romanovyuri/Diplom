@@ -10,3 +10,18 @@
   ansible.builtin.pip:
     name: pymysql
     state: present
+
+- name: Create a new database 'wordpress'
+  community.mysql.mysql_db:
+    name: "wordpress"
+    state: present
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: Create database user 'wordpress' with password and all database privileges
+  community.mysql.mysql_user:
+    name: "wordpress"
+    password: "wordpress"
+    priv: "*.*:ALL"
+    host: "%"
+    state: present
+    login_unix_socket: /var/run/mysqld/mysqld.sock

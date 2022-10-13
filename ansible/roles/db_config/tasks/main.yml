@@ -1,0 +1,14 @@
+---
+- name: "Create MySQL server config file from j2 template"
+  ansible.builtin.template:
+    src: mysqld.cnf.j2
+    dest: /etc/mysql/mysql.conf.d/mysqld.cnf
+    owner: mysql
+    group: mysql
+    mode: 0644
+
+- name: Restart MySQL
+  ansible.builtin.service:
+    name: mysql
+    state: restarted
+    enabled: yes
