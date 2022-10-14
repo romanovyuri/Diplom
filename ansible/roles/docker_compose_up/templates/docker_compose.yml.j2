@@ -1,0 +1,23 @@
+version: '3.6'
+services:
+  web:
+    image: 'gitlab/gitlab-ce:15.4.2-ce.0'
+    container_name: gitlab
+    restart: always
+    hostname: 'gitlab.devopsrom.ru'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://gitlab.devopsrom.ru'
+        gitlab_rails['gitlab_shell_ssh_port'] = 2222
+        gitlab_rails['initial_root_password'] = "wordpress"
+        gitlab_rails['initial_shared_runners_registration_token'] = "qwquedhwiuqhewuyheujnbxkjdssdfjsdkhhjkdfhjdsfh11"
+        # Add any other gitlab.rb configuration here, each on its own line
+    ports:
+      - '80:80'
+      - '443:443'
+      - '2222:22'
+    volumes:
+      - '/opt/gitlab/config:/etc/gitlab'
+      - '/opt/gitlab/logs:/var/log/gitlab'
+      - '/opt/gitlab/data:/var/opt/gitlab'
+    shm_size: '256m'

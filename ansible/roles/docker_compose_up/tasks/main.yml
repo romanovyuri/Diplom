@@ -1,0 +1,18 @@
+---
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: "/opt/gitlab"
+    state: directory
+    mode: '0755'
+
+- name: Create docker compose file from j2 template
+  ansible.builtin.template:
+    src: "docker_compose.yml.j2"
+    dest: "/opt/gitlab/docker-compose.yml"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Create and start services
+  community.docker.docker_compose:
+    project_src: "/opt/gitlab"

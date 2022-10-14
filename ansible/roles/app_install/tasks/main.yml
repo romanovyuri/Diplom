@@ -1,0 +1,49 @@
+---
+- name: Update apt and install app
+  ansible.builtin.apt:
+    pkg:
+      - apache2
+      - php
+      - libapache2-mod-php
+      - php-mysql
+      - php-curl
+      - php-gd
+      - php-mbstring
+      - php-xml
+      - php-xmlrpc
+      - php-soap
+      - php-intl
+      - php-zip
+    state: present
+    update_cache: true
+
+- name: Create config apache from j2 template
+  ansible.builtin.template:
+    src: "wordpress_conf.j2"
+    dest: "/etc/apache2/sites-available/wordpress.conf"
+    owner: root
+    group: root
+    mode: 0755
+
+- name: enable wordpress for apache
+  ansible.builtin.shell: "a2ensite wordpress && a2dissite 000-default && a2enmod rewrite"
+
+- name: Git clone wordpress
+  ansible.builtin.git:
+    repo: "https://github.com/romanovyuri/wordpress.git"
+    dest: "/var/www/wordpress"
+    single_branch: yes
+    version: "main"
+
+- name: Recursively change ownership of a directory
+  ansible.builtin.file:
+    path: "/var/www/wordpress"
+    state: directory
+    recurse: yes
+    owner: ubuntu
+
+- name: Restart Nginx
+  ansible.builtin.service:
+    name: apache2
+    state: restarted
+    enabled: yes

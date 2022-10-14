@@ -22,7 +22,7 @@ resource "null_resource" "nginx" {
 # Генерируем ssh ключи на NGINX, копируем их на внутренние ресурсы "nodesinside" для доступа по SSH.
 resource "null_resource" "ssh_tools" {
   provisioner "local-exec" {
-    command = "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory ../ansible/ssh_tools.yml --extra-vars 'username=ubuntu destfile=files/id_rsa.pub srcfile=files/id_rsa.pub'"
+    command = "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory ../ansible/ssh_tools.yml --extra-vars 'username=ubuntu destfile=files/id_rsa.pub destfile_secret=files/id_rsa srcfile=files/id_rsa.pub'"
   }
 
   depends_on = [
@@ -86,7 +86,7 @@ resource "null_resource" "get_letsencrypt_service_alertmanager" {
 #Создание конфигурации NGINX для корневого домена и поддоменов с работой сертификатов TLS.
 resource "null_resource" "nginx_config" {
   provisioner "local-exec" {
-    command = "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory ../ansible/nginx_config.yml --extra-vars 'domain_name=devopsrom.ru conf_dir=/etc/nginx/conf.d service_ip_port=app:8080 default_conf_file=default.conf'"
+    command = "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory ../ansible/nginx_config.yml --extra-vars 'domain_name=devopsrom.ru conf_dir=/etc/nginx/conf.d service_ip_port=app default_conf_file=default.conf'"
   }
   depends_on = [
     null_resource.get_letsencrypt_service_alertmanager
@@ -94,7 +94,7 @@ resource "null_resource" "nginx_config" {
 }
 resource "null_resource" "nginx_config_www" {
   provisioner "local-exec" {
-    command = "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory ../ansible/nginx_config.yml --extra-vars 'domain_name=www.devopsrom.ru conf_dir=/etc/nginx/conf.d service_ip_port=app:8080'"
+    command = "ANSIBLE_FORCE_COLOR=1 ansible-playbook -i ../ansible/inventory ../ansible/nginx_config.yml --extra-vars 'domain_name=www.devopsrom.ru conf_dir=/etc/nginx/conf.d service_ip_port=app'"
   }
   depends_on = [
     null_resource.get_letsencrypt_service_alertmanager

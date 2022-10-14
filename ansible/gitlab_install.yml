@@ -1,0 +1,50 @@
+---
+- name: Install of requirements tools
+  hosts: gitlab
+  become: yes
+  become_user: root
+  remote_user: ubuntu
+  roles:
+  - role: ubuntu_install_tools
+
+- name: Docker install
+  hosts: gitlab
+  become: yes
+  become_user: root
+  remote_user: ubuntu
+  roles:
+  - role: docker_install
+
+- name: Gitlab in docker up
+  hosts: gitlab
+  become: yes
+  become_user: root
+  remote_user: ubuntu
+  roles:
+  - role: docker_compose_up
+
+- name: Install of requirements tools
+  hosts: runner
+  become: yes
+  become_user: root
+  remote_user: ubuntu
+  roles:
+  - role: ubuntu_install_tools
+
+- name: Docker install
+  hosts: runner
+  become: yes
+  become_user: root
+  remote_user: ubuntu
+  roles:
+  - role: docker_install
+
+- name: Runner install
+  hosts: runner
+  become: yes
+  become_user: root
+  remote_user: ubuntu
+  roles:
+  - role: runner_install
+
+

@@ -1,0 +1,16 @@
+---
+- name: Install of requirements tools
+  hosts: app
+  become: yes
+  become_user: root
+  remote_user: ubuntu
+  roles:
+  - role: ubuntu_install_tools
+
+- name: apache install
+  hosts: app
+  become: yes
+  become_user: root
+  remote_user: ubuntu
+  roles:
+  - role: app_install

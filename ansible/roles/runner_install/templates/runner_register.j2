@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+gitlab-runner register \
+  --non-interactive \
+  --url "http://gitlab.devopsrom.ru/" \
+  --registration-token "qwquedhwiuqhewuyheujnbxkjdssdfjsdkhhjkdfhjdsfh11" \
+  --executor "docker" \
+  --docker-image "docker:stable" \
+  --description "docker-runner" \
+  --maintenance-note "GitLab Runner" \
+  --tag-list "docker,deployment" \
+  --docker-privileged
