@@ -26,7 +26,8 @@
     mode: 0755
 
 - name: Delay befor registration Runner
-  ansible.builtin.shell: "sleep 300"
+  ansible.builtin.shell: "sleep 100"
 
 - name: Register GitLab Runner
   ansible.builtin.shell: "./gitlab-runner-register"
+  

@@ -1,0 +1,40 @@
+---
+- name: Install of requirements tools
+  hosts: monitoring
+  become: yes
+  become_user: root
+  remote_user: ubuntu
+  roles:
+  - role: ubuntu_install_tools
+
+- name: Node_exporter_install
+  hosts: nodes
+  become: yes
+  become_user: root
+  remote_user: ubuntu
+  roles:
+  - role: node_exporter_install
+
+- name: Alertmanager_install
+  hosts: monitoring
+  become: yes
+  become_user: root
+  remote_user: ubuntu
+  roles:
+  - role: alertmanager_exporter_install
+
+- name: Prometheus_install
+  hosts: monitoring
+  become: yes
+  become_user: root
+  remote_user: ubuntu
+  roles:
+  - role: prometheus_install
+
+- name: Grafana_install
+  hosts: monitoring
+  become: yes
+  become_user: root
+  remote_user: ubuntu
+  roles:
+  - role: grafana_install
