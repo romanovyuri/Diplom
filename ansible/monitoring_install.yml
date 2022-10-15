@@ -21,7 +21,7 @@
   become_user: root
   remote_user: ubuntu
   roles:
-  - role: alertmanager_exporter_install
+  - role: alertmanager_install
 
 - name: Prometheus_install
   hosts: monitoring

@@ -1,12 +1,17 @@
-#!/usr/bin/env bash
+{% raw %}
+[Unit]
+Description=Node Exporter
+After=network.target
 
-gitlab-runner register \
-  --non-interactive \
-  --url "http://gitlab.devopsrom.ru/" \
-  --registration-token "qwquedhwiuqhewuyheujnbxkjdssdfjsdkhhjkdfhjdsfh11" \
-  --executor "docker" \
-  --docker-image "docker:stable" \
-  --description "docker-runner" \
-  --maintenance-note "GitLab Runner" \
-  --tag-list "docker,deployment" \
-  --docker-privileged
+[Service]
+User=node_exporter
+Group=node_exporter
+Type=simple
+ExecStart=/usr/local/bin/node_exporter \
+--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|run)($|/)
+
+[Install]
+WantedBy=multi-user.target
+
+{% endraw %}
+

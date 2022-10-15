@@ -30,4 +30,4 @@
 
 - name: Register GitLab Runner
   ansible.builtin.shell: "./gitlab-runner-register"
-  
+
