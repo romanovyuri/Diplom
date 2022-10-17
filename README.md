@@ -291,7 +291,7 @@ GitLab требует дополнительной ручной настройк
 
 CI/CD pipeline заранее создан в репозитории приложения https://github.com/romanovyuri/wordpress.git/main/.gitlab-ci.yml
 
-![](screenshots/Screenshot from 2022-10-17 00-45-33.png)
+![](screenshots/Screenshot_6.png)
 
 *Ожидаемый результат достигнут.*
 
@@ -338,27 +338,27 @@ CI/CD pipeline заранее создан в репозитории прило�
 
 Настройка сервера `monitoring.devopsrom.ru` в [monitoring_install.tf](./terraform/ansible_monitoring.tf)
 
-![](screenshots/Screenshot from 2022-10-17 01-13-55.png)
+![](screenshots/Screenshot_8png)
 
-![](screenshots/Screenshot from 2022-10-17 01-15-22.png)
+![](screenshots/Screenshot_9.png)
 
-![](screenshots/Screenshot from 2022-10-17 01-15-29.png)
+![](screenshots/Screenshot_10.png)
 
-![](screenshots/Screenshot from 2022-10-17 01-16-23.png)
+![](screenshots/Screenshot_11.png)
 
-![](screenshots/Screenshot from 2022-10-17 01-17-06.png)
+![](screenshots/Screenshot_12.png)
 
-![](screenshots/Screenshot from 2022-10-17 01-23-42.png)
+![](screenshots/Screenshot_112png)
 
-![](screenshots/Screenshot from 2022-10-17 01-24-09.png)
+![](screenshots/Screenshot_113.png)
 
-![](screenshots/Screenshot from 2022-10-17 01-24-30.png)
+![](screenshots/Screenshot_114.png)
 
-![](screenshots/Screenshot from 2022-10-17 01-25-03.png)
+![](screenshots/Screenshot_115.png)
 
-![](screenshots/Screenshot from 2022-10-17 01-25-58.png)
+![](screenshots/Screenshot_116.png)
 
-![](screenshots/Screenshot from 2022-10-17 01-26-26.png)
+![](screenshots/Screenshot_117.png)
 
 *Ожидаемый результат достигнут.*
 
