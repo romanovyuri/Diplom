@@ -226,7 +226,7 @@ https://www.devopsrom.ru (WordPress)
 
 Создан отдельный репозиторий для приложения wordpress https://github.com/romanovyuri/wordpress.git
 
-![](screenshots/Screenshot from 2022-10-17 00-44-14.png)
+![](screenshots/Screenshot_14.png)
 
 Создание сервера WordPress `app.devopsrom.ru` описано в [app.tf](./terraform/node_app.tf)
 
@@ -283,11 +283,11 @@ GitLab требует дополнительной ручной настройк
     - `SERVER_IP` - Type Variable, Protected. 
     - `SERVER_USER` - Type Variable, Protected. 
    
-![](screenshots/Screenshot from 2022-10-17 00-50-44.png)
+![](screenshots/Screenshot_44.png)
 
 4. Описать защищенные теги по маске `v*`. Settings - Repository - Protected tags. При создании тега будет происходить деплой приложения на сервер.
 
-![](screenshots/Screenshot from 2022-10-17 01-12-51.png)
+![](screenshots/Screenshot _51.png)
 
 CI/CD pipeline заранее создан в репозитории приложения https://github.com/romanovyuri/wordpress.git/main/.gitlab-ci.yml
 
