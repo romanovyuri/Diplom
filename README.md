@@ -83,7 +83,7 @@ on linux_amd64
 
 ```
 
-Настройки провайдера Yandex Cloud:  [provider.tf](./terraform/provider.tf)
+Настройки провайдера Yandex Cloud:  [provider.tf](./terraform/providers.tf)
 
 Создан сервисный аккаунт `yarom1`с ролью `editor`
 
@@ -102,8 +102,8 @@ Terraform сконфигурирован и создание инфрастру�
 Вся инфраструктура разворачивается и настраивается одним запуском Terraform
 
 ```commandline
-$ cd terraform
-$ terraform apply --auto-approve
+ cd terraform
+ terraform apply --auto-approve
 ```
 
 Развертывание и настройка занимает около 15 минут.
@@ -111,8 +111,8 @@ $ terraform apply --auto-approve
 Уничтожение инфраструктуры так же одним запуском Terraform
 
 ```commandline
-$ cd terraform
-$ terraform destroy --auto-approve
+ cd terraform
+ terraform destroy --auto-approve
 ```
 
 Уничтожение инфраструктуры занимает около 1 минуты.
@@ -152,9 +152,9 @@ https://alertmanager.devopsrom.ru (Alert Manager)
 #### Решение
 
 Создан сервер `nginx.devopsrom.ru`.  Использован NAT-инстанс (image_id:fd8v7ru46kt3s4o5f0uo
-)    [nginx.tf](./terraform/node_proxy.tf)
+)    [nginx.tf](./terraform/nginx.tf)
 
-Настройка сервера `nginx.devopsrom.ru` в [nginx_install.tf](./terraform/ansible_proxy.tf)
+Настройка сервера `nginx.devopsrom.ru` в [nginx_install.tf](./terraform/nginx_install.tf)
 
 *Ожидаемый результат достигнут.*
 
@@ -184,9 +184,9 @@ MySQL работает в режиме репликации Master/Slave.
 
 #### Решение
 
-Создание серверов `db01.devopsrom.ru` и `db02.devopsrom.ru` описано в [mysql.tf](./terraform/node_mysql.tf)
+Создание серверов `db01.devopsrom.ru` и `db02.devopsrom.ru` описано в [mysql.tf](./terraform/mysql.tf)
 
-Настройка серверов `db01.devopsromru` и `db02.devopsrom.ru` в [mysql_install.tf](./terraform/ansible_mysql.tf)
+Настройка серверов `db01.devopsromru` и `db02.devopsrom.ru` в [mysql_install.tf](./terraform/mysql_install.tf)
 
 
 Создана БД `wordpress` с заданными параметрами и пользователем. Запущена репликация.
@@ -228,7 +228,7 @@ https://www.devopsrom.ru (WordPress)
 
 ![](screenshots/Screenshot_14.png)
 
-Создание сервера WordPress `app.devopsrom.ru` описано в [app.tf](./terraform/node_app.tf)
+Создание сервера WordPress `app.devopsrom.ru` описано в [app.tf](./terraform/app.tf)
 
 Настройка сервера WordPress `app.devopsrom.ru` в [app_install.tf](./terraform/app_install.tf)
 
@@ -265,11 +265,11 @@ https://gitlab.devopsrom.ru (Gitlab)
 
 #### Решение
 
-Создание сервера GitLab CE `gitlab.devopsrom.ru` описано в [gitlab.tf](./terraform/node_gitlab.tf)
+Создание сервера GitLab CE `gitlab.devopsrom.ru` описано в [gitlab.tf](./terraform/gitlab.tf)
 
-Создание сервера GitLab runner `runner.devopsrom.ru` описано в [runner.tf](./terraform/node_runner.tf)
+Создание сервера GitLab runner `runner.devopsrom.ru` описано в [runner.tf](./terraform/runner.tf)
 
-Настройка сервера Gitlab CE и GitLab runner `runner.devopsrom.ru` в [gitlab_install.tf](./terraform/ansible_runner.tf)
+Настройка сервера Gitlab CE и GitLab runner `runner.devopsrom.ru` в [gitlab_install.tf](./terraform/gitlab_install.tf)
 
 GitLab требует дополнительной ручной настройки:
 
@@ -285,11 +285,11 @@ GitLab требует дополнительной ручной настройк
    
 ![](screenshots/Screenshot_44.png)
 
-4. Описать защищенные теги по маске `v*`. Settings - Repository - Protected tags. При создании тега будет происходить деплой приложения на сервер.
+4. Описать защищенные теги по маске `v*`. Settings - Repository - Protected tags. При создании тега будет происходить Deploy приложения на сервер.
 
-![](screenshots/Screenshot _51.png)
+![](screenshots/Screenshot_13.png)
 
-CI/CD pipeline заранее создан в репозитории приложения https://github.com/romanovyuri/wordpress.git/main/.gitlab-ci.yml
+CI/CD pipeline заранее создан в репозитории приложения https://github.com/romanovyuri/wordpress/blob/main/.gitlab-ci.yml
 
 ![](screenshots/Screenshot_6.png)
 
@@ -334,9 +334,9 @@ CI/CD pipeline заранее создан в репозитории прило�
 ---
 #### Решение
 
-Создание сервера `monitoring.devopsrom.ru` описано в [monitoring.tf](./terraform/node_monitoring.tf)
+Создание сервера `monitoring.devopsrom.ru` описано в [monitoring.tf](./terraform/monitoring.tf)
 
-Настройка сервера `monitoring.devopsrom.ru` в [monitoring_install.tf](./terraform/ansible_monitoring.tf)
+Настройка сервера `monitoring.devopsrom.ru` в [monitoring_install.tf](./terraform/monitoring_install.tf)
 
 ![](screenshots/Screenshot_8png)
 
