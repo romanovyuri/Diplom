@@ -83,7 +83,7 @@ on linux_amd64
 
 ```
 
-Настройки провайдера Yandex Cloud:  [provider.tf](./terraform/providers.tf)
+Настройки провайдера Yandex Cloud:  [providers.tf](./terraform/providers.tf)
 
 Создан сервисный аккаунт `yarom1`с ролью `editor`
 
